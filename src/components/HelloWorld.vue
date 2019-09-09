@@ -13,10 +13,11 @@
                 class="pa-6"
                 v-model="search"
                 :items="rooms"
+                :value="$store.myValue"
+                @input="setSelected"
                 solo-inverted
                 hide-details
                 item-text="capacity"
-                item-value="value"
                 label="Nombre de personne"
               ></v-select>
 
@@ -34,11 +35,11 @@
           </v-row>
         </template>
 
-        <template v-slot:default="props">
-          <v-row>
+        <template v-slot:default="props" >
+          <v-row >
             <v-col v-for="room in props.items" :key="room.name" cols="12" sm="6" md="4" lg="3">
-              <v-card height="100%" color="transparent">
-                <v-card-title class="subheading font-weight-bold">{{ room.name }}</v-card-title>
+              <v-card height="100%" color="transparent"  v-if="show" >
+                <v-card-title class="subheading font-weight-bold" >{{ room.name }}</v-card-title>
 
                 <v-divider></v-divider>
 
@@ -76,7 +77,6 @@ export default {
     return {
       search: "",
       rooms: [],
-      idRoom: [],
       snackbar: false,
       text: "Réservation confirmée !",
       timeout: 2000
@@ -93,14 +93,18 @@ export default {
   methods: {
     getById(id) {
       axios.get(`http://localhost:3000/api/v1/rooms/${id}`).then(response => {
-        this.idRoom = response.data;
+        
       });
+    },
+    setSelected(value){
+      this.show=true
+      
     }
   }
 };
 </script>
 <style scoped>
- @import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
+ @import url('http://fonts.googleapis.com/css?family=Rubik&display=swap');
 
     #inspire {
      font-family: 'Rubik', sans-serif;
