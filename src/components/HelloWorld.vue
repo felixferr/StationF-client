@@ -18,7 +18,7 @@
                 solo-inverted
                 hide-details
                 item-text="capacity"
-                label="Nombre de personne"
+                label="Nombre de personnes"
               ></v-select>
 
               <v-select
@@ -125,7 +125,7 @@ export default {
   },
 
   mounted() {
-    axios.get(`http://localhost:3000/api/v1/rooms`).then(response => {
+    axios.get(`/api/v1/rooms`).then(response => {
       this.rooms = response.data;
       console.log(this.rooms);
     });
@@ -134,9 +134,10 @@ export default {
   methods: {
     getById(id) {
       axios
-        .get(`http://localhost:3000/api/v1/rooms/${id}`)
+        .get(`/api/v1/rooms/${id}`)
         .then(response => {});
     },
+
     setSelected(value) {
       this.show = true;
     },
