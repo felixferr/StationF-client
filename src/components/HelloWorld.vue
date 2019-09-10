@@ -125,7 +125,7 @@ export default {
   },
 
   mounted() {
-    axios.get(`/api/v1/rooms`).then(response => {
+    axios.get(`http://localhost:3000/api/v1/rooms`).then(response => {
       this.rooms = response.data;
       console.log(this.rooms);
     });
@@ -134,7 +134,7 @@ export default {
   methods: {
     getById(id) {
       axios
-        .get(`/api/v1/rooms/${id}`)
+        .get(`http://localhost:3000/api/v1/rooms/${id}`)
         .then(response => {});
     },
 
