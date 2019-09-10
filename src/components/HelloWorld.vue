@@ -39,7 +39,7 @@
 
         <template v-slot:default="props">
           <v-row>
-            <v-col v-for="(room, index) in props.items" :key="room.id" cols="12" sm="6" md="4" lg="3">
+            <v-col v-for="(room) in props.items" :key="room.id" cols="12" sm="6" md="4" lg="3">
               <v-card height="100%" color="transparent" v-if="show">
                 <v-card-title class="subheading font-weight-bold">{{ room.name }}</v-card-title>
 
@@ -52,10 +52,38 @@
                     class="align-end"
                   >Equipements : {{room.equipements && room.equipements.length > 0 ? room.equipements[0].name : ''}}, {{room.equipements && room.equipements.length > 1 ? room.equipements[1].name : ''}}</v-list-item-content>
                   <v-list-item-content class="align-end">Horaires :</v-list-item-content>
-                  <v-btn  class="ma-2" outlined color="indigo">9:00</v-btn>
-                  <v-btn class="ma-2" outlined color="indigo">10:30</v-btn>
-                  <v-btn class="ma-2" outlined color="indigo">14:30</v-btn>
-                  <v-btn class="ma-2" outlined color="indigo">16:30</v-btn>
+                  <v-btn
+                    :disabled="clicked.includes(room._id)"
+                    v-bind:key="room._id"
+                    @click="doVote(room._id)"
+                    class="ma-2"
+                    outlined
+                    color="indigo"
+                  >9:00</v-btn>
+                  <v-btn
+                    :disabled="clicked1.includes(room._id)"
+                    v-bind:key="room._id"
+                    @click="doVote1(room._id)"
+                    class="ma-2"
+                    outlined
+                    color="indigo"
+                  >10:30</v-btn>
+                  <v-btn
+                    :disabled="clicked2.includes(room._id)"
+                    v-bind:key="room._id"
+                    @click="doVote2(room._id)"
+                    class="ma-2"
+                    outlined
+                    color="indigo"
+                  >14:30</v-btn>
+                  <v-btn
+                    :disabled="clicked3.includes(room._id)"
+                    v-bind:key="room._id"
+                    @click="doVote3(room._id)"
+                    class="ma-2"
+                    outlined
+                    color="indigo"
+                  >16:30</v-btn>
                   <div class="text-center">
                     <v-btn
                       v-on:click="getById(room._id)"
@@ -89,6 +117,10 @@ export default {
       snackbar: false,
       text: "Réservation confirmée !",
       timeout: 2000,
+      clicked: [],
+      clicked1: [],
+      clicked2: [],
+      clicked3: []
     };
   },
 
@@ -107,6 +139,30 @@ export default {
     },
     setSelected(value) {
       this.show = true;
+    },
+    doVote(id) {
+      this.clicked.push(id);
+      if (!id) {
+        return;
+      }
+    },
+    doVote1(id) {
+      this.clicked1.push(id);
+      if (!id) {
+        return;
+      }
+    },
+    doVote2(id) {
+      this.clicked2.push(id);
+      if (!id) {
+        return;
+      }
+    },
+    doVote3(id) {
+      this.clicked3.push(id);
+      if (!id) {
+        return;
+      }
     }
   }
 };
